@@ -1,0 +1,16 @@
+{
+  "name": "backend-craft",
+  "version": "1.0.0",
+  "description": "backend learning ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javaScript",
+    "backend",
+    "chai"
+  ],
+  "author": "Girish Chandra",
+  "license": "ISC"
+}
