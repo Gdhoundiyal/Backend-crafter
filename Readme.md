@@ -1,4 +1,6 @@
 # Chai aur Backend Learning 
 
-let's start a new journey
-to take you knowledge more deep in banckend
+NOtes
+* Data base is always in different continent.
+* always use try catch or async await  whenever interacting with DB.
+* iife = immedietaly invoked function expression = (()=>{})()
