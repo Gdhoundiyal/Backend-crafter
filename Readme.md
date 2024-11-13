@@ -7,3 +7,5 @@ NOtes
 *  by using touch you can create multiple fils
 * app.use is used to set middlewares and configs
 * multer(package) is used for file handeling   
+* JWT is bearer token (kind of key)
+
