@@ -8,4 +8,10 @@ NOtes
 * app.use is used to set middlewares and configs
 * multer(package) is used for file handeling   
 * JWT is bearer token (kind of key)
+* fs is file system it's given by Node by default.
+* middlewares: agar ja rahe ho to mujh se milke jana
 
+# HTTP related - E-12
+
+* URL = Uniform Resource Locator
+* URI = Uniform Resource Identifier
