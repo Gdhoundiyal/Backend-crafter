@@ -18,3 +18,11 @@ NOtes
 * most common headers =  accept, user, authorigation, content-type, cookie, cache-contol
 * basic methods = get, post, put, delete, patch, head, options, trace
 * status code = 1** - Information, 2** - success, 3** - Redirection, 4** - client Error, 5** - Server error
+
+
+# register a user steps
+
+* take the data of the user 
+* verify the data is it right 
+* store data in database 
+* send message if error or done
