@@ -26,3 +26,5 @@ NOtes
 * verify the data is it right 
 * store data in database 
 * send message if error or done
+
+* if anything starts from $ sign then it is called operator 
