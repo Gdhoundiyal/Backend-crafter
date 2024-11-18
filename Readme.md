@@ -24,6 +24,7 @@ NOtes
 
 * take the data of the user 
 * verify the data is it right 
+* check if user already exists: username, email
 * store data in database 
 * send message if error or done
 
