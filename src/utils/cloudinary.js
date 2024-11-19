@@ -9,9 +9,6 @@ dotenv.config();
         api_secret: process.env.CLOUDINARY_API_SECRET
     });
 
-  console.log("process env",process.env.CLOUDINARY_CLOOUD_NAME)
-  console.log("process api key",process.env.CLOUDINARY_API_KEY)
-  console.log("process api secret",process.env.CLOUDINARY_API_SECRET)
     const uploadOnCloudinary = async (localFilePath) => {
         try{
             if(!localFilePath) return null

@@ -5,12 +5,9 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 const resgisterUser = asyncHandler(async (req, res) => {
-    
-    // res.status(200).json({
-    //     message: 'ok'
-    // })
+
     const {fullname, username, email, password} = req.body
-    console.log("text: ", req.body)
+    // console.log("text: ", req.body)
 
     if([fullname, username, email, password].some((field)=>
     field?.trim() === ""
@@ -40,9 +37,6 @@ const resgisterUser = asyncHandler(async (req, res) => {
     
     const avatar = await uploadOnCloudinary(avatarLocalPath)
     const coverImage = await uploadOnCloudinary(coverImageLocalPath)
-    
-    console.log("......avatar", avatar.url);
-    console.log("......coverImage", coverImage?.url);
 
 
     if(!avatarLocalPath){
@@ -58,7 +52,6 @@ const resgisterUser = asyncHandler(async (req, res) => {
         username: username.toLowerCase()
     })
 
-    console.log("user createx", user);
 
     const createdUser = await User.findById(user._id).select("-password -refreshToken")
 
