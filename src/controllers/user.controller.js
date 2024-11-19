@@ -10,7 +10,7 @@ const resgisterUser = asyncHandler(async (req, res) => {
     //     message: 'ok'
     // })
     const {fullname, username, email, password} = req.body
-    console.log("email: ", req.body)
+    console.log("text: ", req.body)
 
     if([fullname, username, email, password].some((field)=>
     field?.trim() === ""
@@ -18,7 +18,7 @@ const resgisterUser = asyncHandler(async (req, res) => {
         throw new ApiError(400, "All fields are required")
     }
 
-    const existedUser = User.findOne({
+    const existedUser =  await User.findOne({
         $or:  [{ username }, { email }]
     })
 
@@ -28,7 +28,8 @@ const resgisterUser = asyncHandler(async (req, res) => {
 
 
     const  avatarLocalPath = req.files?.avatar[0]?.path;
-    const  coverImageLocalPath = req.files?.coverImage[0]?.path;
+    const  coverImageLocalPath = req.files?.coverimage[0]?.path;
+   
 
     if(!avatarLocalPath){
         throw new ApiError(400, "Avatar file is required")
@@ -37,19 +38,25 @@ const resgisterUser = asyncHandler(async (req, res) => {
     const avatar = await uploadOnCloudinary(avatarLocalPath)
     const coverImage = await uploadOnCloudinary(coverImageLocalPath)
     
+    console.log("......avatar", avatar.url);
+    console.log("......coverImage", coverImage.url);
+
+
     if(!avatarLocalPath){
         throw new ApiError(400, "Avatar file is required")
     }
 
-
+console.log(typeof(coverImage.url),"-------------------------------------------->coverImage.url")
     const user = await User.create({
         fullname,
         avatar: avatar.url,
-        coverImage: coverImage?.url || "",
+        coverimage: coverImage?.url || "",
         email,
         password,
-        username: username.tolowerCase()
+        username: username.toLowerCase()
     })
+
+    console.log("user createx", user);
 
     const createdUser = await User.findById(user._id).select("-password -refreshToken")
 

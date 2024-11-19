@@ -10,7 +10,7 @@ router.post("/register", upload.fields([
         maxCount: 1
     },
     {
-        name: "coverImage",
+        name: "coverimage",
         maxCount: 1
     }
 ]),  resgisterUser)

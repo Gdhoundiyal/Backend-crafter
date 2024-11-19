@@ -32,12 +32,7 @@ const userSchema = new Schema(
         coverimage: {
             type: String,
         },
-        coverimage: [
-            {
-                type : Schema.Types.ObjectId,
-                ref : "Video"
-            }
-        ],
+        
         password: {
             type : String,
             required: [true, 'Password is required']
@@ -87,4 +82,4 @@ userSchema.methods.generateAccessToken = function (){
     )
 }
 
-export const user = mongoose.model("User", userSchema)
+export const User = mongoose.model("User", userSchema)
