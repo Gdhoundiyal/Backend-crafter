@@ -5,12 +5,9 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 const resgisterUser = asyncHandler(async (req, res) => {
-    
-    // res.status(200).json({
-    //     message: 'ok'
-    // })
+
     const {fullname, username, email, password} = req.body
-    console.log("text: ", req.body)
+    // console.log("text: ", req.body)
 
     if([fullname, username, email, password].some((field)=>
     field?.trim() === ""
@@ -28,8 +25,11 @@ const resgisterUser = asyncHandler(async (req, res) => {
 
 
     const  avatarLocalPath = req.files?.avatar[0]?.path;
-    const  coverImageLocalPath = req.files?.coverimage[0]?.path;
+    let  coverImageLocalPath;
    
+    if(req.files && Array.isArray(req.files.coverimage) && req.files.coverimage.length > 0){
+        coverImageLocalPath = req.files.coverimage[0].path
+    }
 
     if(!avatarLocalPath){
         throw new ApiError(400, "Avatar file is required")
@@ -37,16 +37,12 @@ const resgisterUser = asyncHandler(async (req, res) => {
     
     const avatar = await uploadOnCloudinary(avatarLocalPath)
     const coverImage = await uploadOnCloudinary(coverImageLocalPath)
-    
-    console.log("......avatar", avatar.url);
-    console.log("......coverImage", coverImage.url);
 
 
     if(!avatarLocalPath){
         throw new ApiError(400, "Avatar file is required")
     }
 
-console.log(typeof(coverImage.url),"-------------------------------------------->coverImage.url")
     const user = await User.create({
         fullname,
         avatar: avatar.url,
@@ -56,7 +52,6 @@ console.log(typeof(coverImage.url),"--------------------------------------------
         username: username.toLowerCase()
     })
 
-    console.log("user createx", user);
 
     const createdUser = await User.findById(user._id).select("-password -refreshToken")
 

@@ -32,7 +32,12 @@ const userSchema = new Schema(
         coverimage: {
             type: String,
         },
-        
+        watchHistory: [
+            {
+                type : Schema.Types.ObjectId,
+                ref : "Video"
+            }
+        ],
         password: {
             type : String,
             required: [true, 'Password is required']
@@ -71,9 +76,6 @@ userSchema.methods.generateAccessToken = function (){
     jwt.sign(
         {
             _id: this._id,
-            email: this.email,
-            username: this.username,
-            fullname: this.fullname
         },
         process.env.REQUEST_TOKEN_SECRET,
         {
