@@ -6,9 +6,10 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 
 const resgisterUser = asyncHandler(async (req, res) => {
 
+    //extracting data from forntend request
     const {fullname, username, email, password} = req.body
-    // console.log("text: ", req.body)
 
+    //checking validation
     if([fullname, username, email, password].some((field)=>
     field?.trim() === ""
     )){

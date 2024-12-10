@@ -23,9 +23,11 @@ NOtes
 # register a user steps
 
 * take the data of the user 
-* verify the data is it right 
+* verify the data is it right (validation)
 * check if user already exists: username, email
 * store data in database 
 * send message if error or done
+
+
 
 * if anything starts from $ sign then it is called operator 
