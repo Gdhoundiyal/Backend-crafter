@@ -31,3 +31,8 @@ NOtes
 
 
 * if anything starts from $ sign then it is called operator 
+
+
+# Access / Refresh Tokens
+
+* accessToken expires in short duration whereas refreshToken expires in long duration. 
