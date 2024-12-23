@@ -29,10 +29,12 @@ NOtes
 * send message if error or done
 
 
-
+     
 * if anything starts from $ sign then it is called operator 
 
 
 # Access / Refresh Tokens
 
 * accessToken expires in short duration whereas refreshToken expires in long duration. 
+* by doing httponly true cookies can't be changed by frontend.
+

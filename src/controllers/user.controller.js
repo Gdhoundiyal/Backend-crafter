@@ -66,6 +66,22 @@ const resgisterUser = asyncHandler(async (req, res) => {
 
 })
 
+const generateAccessTokenAndRefreshToken = async(userId)=> {
+    try {
+        const user = await User.findById(userId)
+        const accessToken = user.generateAccessToken()
+        const refreshToken = user.generateRefreshToken();
+
+        user.refreshToken = refreshToken;
+        await user.save({validateBeforeSave: false})
+
+        return {accessToken, refreshToken}
+
+    } catch (error) {
+        throw new ApiError(500, 'Something went wrong while generating access and refresh Tokens')
+    }
+}
+
 const loginUser = asyncHandler(async (req, res)=>{
     // extract data 
     // data validation
@@ -94,8 +110,54 @@ const loginUser = asyncHandler(async (req, res)=>{
         throw new ApiError(401, 'invalid user credentials')
     }
 
-     
+    const {accessToken, refreshToken} = await generateAccessTokenAndRefreshToken(user._id);
+
+    const loggedinUser = await User.findById(user._id).select(-password -refreshToken);
+
+    const options = {
+        httpOnly : true,
+        secure: true
+    }
+
+    return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken  , options)
+    .json(
+        new ApiResponse(
+            200,
+            {
+                user: loggedinUser, accessToken, refreshToken
+            },
+            "User Logged In Successfully"
+        )
+    )
 })
-export {resgisterUser,
-    loginUser
+
+const logoutUser = asyncHandler(async (req, res)=>{
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            refreshToken: undefined
+        },
+        {
+            new: true
+        }
+    )
+
+    const options = {
+        httpOnly : true,
+        secure: true
+    }
+
+    return res 
+        .status(200)
+        .ClearCookie("accessToken", options)
+        .ClearCookie("refreshToken", options)
+        .json(200, {}, 'User Logged Out Successfully')
+})
+export {
+    resgisterUser,
+    loginUser,
+    logoutUser
 } 
