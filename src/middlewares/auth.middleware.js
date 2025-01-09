@@ -1,12 +1,14 @@
-import { User } from "../models/user.models";
-import { ApiError } from "../utils/apiError";
-import { asyncHandler } from "../utils/asyncHandler";
+import { User } from "../models/user.models.js";
+import { ApiError } from "../utils/apiError.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 import jwt from 'jsonwebtoken'
-
+ 
  export const verifyJWT = asyncHandler( async (req, res, next)=>{
 
     try {
-        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+        console.log("token", req.cookies?.accessToken);
+        
+        const decodedToken = jwt.verify(req.cookies?.accessToken, process.env.ACCESS_TOKEN_SECRET)
     
         const user = await User.findById(decodedToken?._id).select(
             "--password --refreshToken"

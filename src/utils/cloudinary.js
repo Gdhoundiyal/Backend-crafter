@@ -12,15 +12,20 @@ dotenv.config();
     const uploadOnCloudinary = async (localFilePath) => {
         try{
             if(!localFilePath) return null
-
+            
+            console.log("clodianry inside", localFilePath)
             const response = await cloudinary.uploader.upload(localFilePath, {
                 resource_type: 'auto'
             })
             console.log("response onn cloudinary", response);
-            fs.unlinkSync(localFilePath)
+            if (fs.existsSync(localFilePath)) {
+                fs.unlinkSync(localFilePath);
+            }
             return response
         } catch(err){
-            fs.unlinkSync(localFilePath) 
+            if (fs.existsSync(localFilePath)) {
+                fs.unlinkSync(localFilePath);
+            }
             return null;
         }
     }
