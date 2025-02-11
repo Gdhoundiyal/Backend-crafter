@@ -58,7 +58,6 @@ const resgisterUser = asyncHandler(async (req, res) => {
         username: username.toLowerCase()
     })
 
-
     const createdUser = await User.findById(user._id).select("-password -refreshToken")
 
     if(!createdUser){
@@ -169,6 +168,10 @@ const logoutUser = asyncHandler(async (req, res)=>{
         .clearCookie("accessToken", options)
         .clearCookie("refreshToken", options)
         .json(200, {}, 'User Logged Out Successfully')
+})
+
+const refeshAccessToken = asyncHandler(async (req, res)=> {
+
 })
 export {
     resgisterUser,

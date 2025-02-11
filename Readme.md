@@ -29,7 +29,6 @@ NOtes
 * send message if error or done
 
 
-     
 * if anything starts from $ sign then it is called operator 
 
 
