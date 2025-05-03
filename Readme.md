@@ -23,9 +23,17 @@ NOtes
 # register a user steps
 
 * take the data of the user 
-* verify the data is it right 
+* verify the data is it right (validation)
 * check if user already exists: username, email
 * store data in database 
 * send message if error or done
 
+
 * if anything starts from $ sign then it is called operator 
+
+
+# Access / Refresh Tokens
+
+* accessToken expires in short duration whereas refreshToken expires in long duration. 
+* by doing httponly true cookies can't be changed by frontend.
+
